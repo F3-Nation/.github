@@ -1,3 +1,27 @@
+# Architecture Overview
+```mermaid
+---
+config:
+  theme: neo-dark
+---
+architecture-beta
+
+    group gcp(cloud)[GCP]
+    service db(database)[Database] in gcp
+    service slack_app(server)[Slack App] in gcp
+    service slack_storage(disk)[Images] in gcp
+    service map_app(server)[Map App] in gcp
+    service codex_app(server)[Codex] in gcp
+    service dashboard_app(server)[Vault] in gcp
+    service region_pages(server)[Region Pages] in gcp
+    db:R -- L:slack_app
+    db:R -- L:map_app
+    db:R -- L:codex_app
+    db:R -- L:dashboard_app
+    db:R -- L:region_pages
+    slack_app:R -- L:slack_storage
+```
+
 # Data - Entity Overview
 
 ```mermaid
