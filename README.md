@@ -118,17 +118,17 @@ erDiagram
 
 ## Repo Quick Links
 
-| Repo | Runs On | Primary Maintainers |
-|------|---------|-------------------|
-| [f3-nation](https://github.com/F3-Nation/f3-nation) | Cloud Run | — |
-| [f3-nation-slack-bot](https://github.com/F3-Nation/f3-nation-slack-bot) | Cloud Run | — |
-| [pax-vault](https://github.com/F3-Nation/pax-vault) | Cloud Run | — |
-| [f3nearme](https://github.com/F3-Nation/f3nearme) | Cloud Run | — |
-| [f3-nation-auth](https://github.com/F3-Nation/f3-nation-auth) | npm package | — |
-| [the-codex](https://github.com/F3-Nation/the-codex) | Cloud Run | — |
-| [f3-region-pages](https://github.com/F3-Nation/f3-region-pages) | Cloud Run | — |
-| [f3-status](https://github.com/F3-Nation/f3-status) | GitHub Pages | — |
-| [f3-org-map](https://github.com/F3-Nation/f3-org-map) | GitHub Pages | — |
+| Repo | Runs On |
+|------|---------|
+| [f3-nation](https://github.com/F3-Nation/f3-nation) | Cloud Run |
+| [f3-nation-slack-bot](https://github.com/F3-Nation/f3-nation-slack-bot) | Cloud Run |
+| [pax-vault](https://github.com/F3-Nation/pax-vault) | Cloud Run |
+| [f3nearme](https://github.com/F3-Nation/f3nearme) | Cloud Run |
+| [f3-nation-auth](https://github.com/F3-Nation/f3-nation-auth) | npm package |
+| [the-codex](https://github.com/F3-Nation/the-codex) | Cloud Run |
+| [f3-region-pages](https://github.com/F3-Nation/f3-region-pages) | Cloud Run |
+| [f3-status](https://github.com/F3-Nation/f3-status) | GitHub Pages |
+| [f3-org-map](https://github.com/F3-Nation/f3-org-map) | GitHub Pages |
 
 ---
 
