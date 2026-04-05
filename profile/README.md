@@ -6,6 +6,21 @@ We're a volunteer group of amateur developers building the digital platform behi
 
 ---
 
+## The Mission [of F3 Tech]
+
+> Modernizing the "How" to support he "Why".
+
+1. Providing off-the-shelf solutions enabling efficient launches to new regions.
+1. Helping sad clowns find F3 through digital mediums.
+1. Inspiring invigoration through real-time feedback and reporting on region health.
+
+Accomplishing this through:
+
+1. **Unified Data:** Every tool "talks" to the others, ensuring shared data and user management across the Nation.
+1. **Unified Support**: Strong collaboration and official infrastructure promotes stability and longevity.
+
+---
+
 ## The Big Picture
 
 ```mermaid
