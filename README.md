@@ -37,82 +37,55 @@ Almost everything runs on **Google Cloud Platform**:
 
 ### How the Pieces Connect
 
-```
-┌─────────────┐     ┌──────────────────────────────────────────────┐
-│  Slack Bot   │────▶│                                              │
-│  (Python)    │     │            F3 Nation API                     │
-└─────────────┘     │         (Cloud Run / Node.js)                │
-                    │                                              │
-┌─────────────┐     │    ┌────────────┐    ┌──────────────────┐    │
-│  Map/Admin  │────▶│    │  Drizzle   │───▶│   PostgreSQL     │    │
-│  (Next.js)  │     │    │   ORM      │    │  (Cloud SQL)     │    │
-└─────────────┘     │    └────────────┘    └──────────────────┘    │
-                    └──────────────────────────────────────────────┘
-┌─────────────┐
-│  f3nearme   │─── reads from the same API ───────────────────────▶│
-└─────────────┘
+For the broader org-level view, see the [homepage architecture section](profile/README.md#the-big-picture).
 
-┌─────────────┐     ┌──────────────────┐
-│  PAX Vault  │────▶│     BigQuery     │  (read-only analytics)
-│  (Next.js)  │     └──────────────────┘
-└─────────────┘
+```mermaid
+flowchart LR
+    subgraph apps[Applications]
+        bot[Slack Bot\nPython]
+        map[Map and Admin\nNext.js]
+        nearme[f3nearme]
+        vault[PAX Vault\nNext.js]
+        codex[The Codex\nNext.js]
+        auth[Auth Package\nTypeScript]
+    end
 
-┌─────────────┐     ┌──────────────────┐
-│  The Codex  │────▶│   PostgreSQL     │  (same Cloud SQL instance,
-│  (Next.js)  │     │  (Cloud SQL)     │   different data focus)
-└─────────────┘     └──────────────────┘
+    subgraph platform[F3 Nation Platform]
+        api[F3 Nation API\nCloud Run / Node.js]
+        orm[Drizzle ORM]
+    end
 
-┌─────────────┐     ┌──────────────────┐
-│  Auth (SSO) │────▶│ Used by PAX Vault│
-│  (TS pkg)   │     │   and Codex      │
-└─────────────┘     └──────────────────┘
+    subgraph data[Data Services]
+        pg[(PostgreSQL\nCloud SQL)]
+        bq[(BigQuery)]
+    end
+
+    bot --> api
+    map --> api
+    nearme --> api
+    api --> orm --> pg
+    codex --> pg
+    vault --> bq
+    auth -. used by .-> vault
+    auth -. used by .-> codex
 ```
 
 ---
 
 ## Data Model
 
-Our core data model centers around **users** attending **events** at **organizations** (regions, AOs), connected through **Slack workspaces**:
-
-```mermaid
----
-config:
-    look: handDrawn
-    theme: dark
----
-
-erDiagram
-    USERS ||--|{ ATTENDANCE : have
-    ATTENDANCE }|--|| EVENT_INSTANCES: at
-    ATTENDANCE }|..|{ ATTENDANCE_TYPES : "are of type(s)"
-    EVENT_INSTANCES }|..|| EVENTS : "part of series"
-    EVENT_INSTANCES }|..|{ EVENT_TYPES : "with type(s)"
-    EVENTS }|..|{ EVENT_TYPES : "with type(s)"
-    EVENT_INSTANCES }|--|| ORGS : "belong to"
-    EVENT_INSTANCES }|..|| LOCATIONS : "at"
-    EVENTS }|--|| ORGS : "belong to"
-    EVENTS }|..|| LOCATIONS : "at"
-    SLACK_SPACES ||..|| ORGS : "are connected to"
-    USERS ||..|{ SLACK_USERS : "have one or more"
-    SLACK_USERS }|--|| SLACK_SPACES : "belong to"
-    USERS }|..|{ ACHIEVEMENTS : "earn"
-    USERS }|..|{ ROLES : "have"
-    ROLES ||..|{ PERMISSIONS : "have"
-    ROLES }|..|{ ORGS : "in"
-    USERS }|..|{ POSITIONS : "hold"
-    POSITIONS }|..|{ ORGS : "in"
-```
+To avoid duplicate maintenance, we keep the canonical data model diagram on the org homepage README: [Data Model Overview](profile/README.md#data-model-overview).
 
 ### Key Concepts
 
-| Term | Meaning |
-|------|---------|
-| **PAX** | A participant — anyone who shows up to a workout |
-| **AO** | Area of Operations — a specific workout location |
-| **Region** | A geographic grouping of AOs under shared leadership |
-| **Q** | The person leading a particular workout |
-| **Exicon** | The F3 exercise dictionary |
-| **Lexicon** | F3-specific terminology and definitions |
+| Database Term | F3 Term | Meaning |
+|------|------|---------|
+| user | **PAX** | A participant — anyone who shows up to a workout |
+| org | **AO** | Area of Operations — an organizational unit, NOT a physical location |
+| org | **Region** | A geographic grouping of AOs under shared leadership |
+| user | **Q** | The person leading a particular workout |
+| entry | **Exicon** | The F3 exercise dictionary |
+| entry | **Lexicon** | F3-specific terminology and definitions |
 
 ---
 
@@ -129,6 +102,12 @@ erDiagram
 | [f3-region-pages](https://github.com/F3-Nation/f3-region-pages) | Cloud Run |
 | [f3-status](https://github.com/F3-Nation/f3-status) | GitHub Pages |
 | [f3-org-map](https://github.com/F3-Nation/f3-org-map) | GitHub Pages |
+
+---
+
+## Use of AI
+
+We're all doing it. And we're working on some guidelines for using it.
 
 ---
 
